@@ -1,5 +1,5 @@
 // Service Worker — para publicar uma nova versão, troque o número em V
-const V='analisador-v1',SHELL=['./','index.html','manifest.webmanifest','../icons/icon-192.png','../icons/icon-512.png'],CDN=[];
+const V='analisador-v2',SHELL=['./','index.html','manifest.webmanifest','./icon-192.png','./icon-512.png','./icon-maskable-512.png','./favicon-32.png','./apple-touch-icon.png'],CDN=[];
 self.addEventListener('install',e=>e.waitUntil(caches.open(V).then(c=>Promise.all([c.addAll(SHELL),...CDN.map(u=>c.add(new Request(u,{mode:'no-cors'})).catch(()=>{}))])).then(()=>self.skipWaiting())));
 self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(k=>Promise.all(k.filter(x=>x.startsWith('analisador-')&&x!==V).map(x=>caches.delete(x)))).then(()=>self.clients.claim())));
 self.addEventListener('fetch',e=>{
